@@ -1,0 +1,47 @@
+@import '../../lib/iconfont/iconfont.wxss';
+
+.err_msg{
+    color: red;
+    text-align: center;
+}
+.title {
+    text-align: center;
+    padding: 5%;
+}
+.u-info {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.u-info .name {
+    display: flex;
+}
+input {
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.clazz_picker {
+    display: flex;
+}
+.m_info {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+
+.m_info .m_code{
+    display: flex;
+}
+.m_info .m_cname{
+    display: flex;
+}
+.m_info .m_num {
+    display: flex;
+}
+
+.m_info .m_mail {
+    display: flex;
+}
+.confirm {
+    padding: 5%;
+}

@@ -1,0 +1,7 @@
+/**app.wxss**/
+.container {
+  width: 80%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: rgb(252, 250, 250);
+} 

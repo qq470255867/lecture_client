@@ -1,0 +1,125 @@
+<!--pages/my/my.wxml-->
+<page>
+    <view class="userinfo">
+        <view class="avatar">
+            <image src="{{user.avatar}}"></image>
+            <view class="edit">
+                <button bindtap="edit" style="font-size: 80%;" type="primary" size="mini"
+                    aria-disabled="false">修改资料</button>
+            </view>
+        </view>
+
+        <view class="info_button">
+            <view class="info">
+                <view class="name_role">
+                    <view class="name">
+                        <text class="iconfont icon-xingming"> </text> {{user.name}}
+                    </view>
+                    <view class="role">
+                        <text class="iconfont icon-jiaoseguanli"> </text> {{role.name}}
+                    </view>
+                </view>
+                <view class="clazz">
+                    <text class="iconfont icon-banji"> </text> {{clazz.name}}
+                </view>
+                <view class="mail" wx:if="{{role.id>=1}}">
+                    <text class="iconfont icon-youxiang"> </text> {{user.mail}}
+                </view>
+            </view>
+        </view>
+
+    </view>
+
+    <view class="lecture_date">
+        <view class="lecture">当前课程：{{lecture.name}}</view>
+        <view class="date">更新时间：{{lecture.date}}</view>
+    </view>
+    <view class="mysubstatus">
+        <view class="status">提交状态：
+            <text wx:if="{{record.id}}" style="color: green;">已提交</text>
+            <view wx:if="{{record.id}}" style="width: 50%; text-align: right;"><button size="mini" type="primary"
+                    style="font-size: 80%;" bindtap="downloadZip">查看</button></view>
+            <text wx:if="{{!record.id}}" style="color: red;">未提交</text>
+        </view>
+        <view wx:if="{{record.date}}" class="status_time">提交时间：{{record.date}}</view>
+    </view>
+    <view wx:if="{{role.id>=1}}" class="substatus">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text><text>此处仅团支书可见</text></view>
+
+        <view class="title_sel">
+            <view class="s_title">名单</view>
+            <view class="sel">
+                <picker bindchange="bindPickerChange" value="{{defaultPickIndex}}" range="{{pickData}}">
+
+                    <view class="picker">
+                        <text class='iconfont icon-liebiao'></text>
+                        {{pickData[defaultPickIndex]}}
+                    </view>
+                </picker>
+            </view>
+        </view>
+
+        <scroll-view wx:if="{{defaultPickIndex==0}}" scroll-x="true" scroll-y="true" class="plist">
+            <view wx:for="{{allSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
+                <view class="pname"> <text>{{p.user.name}}</text></view>
+                <view class="pstatus"> <text wx:if="{{p.status}}" style="color: green;">已提交</text>
+                    <text wx:if="{{!p.status}}" style="color: red;">未提交</text>
+                </view>
+            </view>
+        </scroll-view>
+
+        <scroll-view wx:if="{{defaultPickIndex==1}}" scroll-x="true" scroll-y="true" class="plist">
+            <view wx:for="{{submitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
+
+                <view class="pname"> <text>{{p.user.name}}</text></view>
+                <view class="pstatus">
+                    <text wx:if="{{p.status}}" style="color: green;">已提交</text>
+                </view>
+
+            </view>
+        </scroll-view>
+        <scroll-view wx:if="{{defaultPickIndex==2}}" scroll-x="true" scroll-y="true" class="plist">
+            <view wx:for="{{notSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
+
+                <view class="pname"> <text>{{p.user.name}}</text></view>
+                <view class="pstatus">
+                    <text wx:if="{{!p.status}}" style="color: red;">未提交</text>
+                </view>
+
+            </view>
+        </scroll-view>
+        <view class="pnum_export">
+            <view class="export"><button type="primary" size="mini" style="font-size: 80%;" bindtap="export">打印此页</button></view>
+            <view class="pnum">提交人数/班内人数：{{submitNum}}/{{clazz.pnum}}</view>
+        </view>
+        <view class="info_text"><text class="iconfont icon-tishi"></text>名单不全？可能是因为还有同学未注册小程序</view>
+
+        <view class="mbutton">
+            <button style="font-size: 80%;" type="primary" bindtap="postEmail">收件到我的邮箱</button>
+        </view>
+
+    </view>
+    <view class="cur_lecture" wx:if="{{role.id>=2}}">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text><text>此处仅管理员可见</text></view>
+        <view class="l_title">历史团课</view>
+
+        <scroll-view scroll-y="true" class="lec_list">
+            <view wx:for="{{lectures}}" wx:for-index="idx" wx:for-item="lec" class="lec">
+                <view class="lname"> <text>{{lec.name}}</text></view>
+                <view class="ldate">
+                    <text style="color: red;">{{lec.date}}</text>
+                </view>
+            </view>
+        </scroll-view>
+
+        <view class="nbutton">
+            <button bindtap="showNewLecModal" style="font-size: 80%;" type="primary">更新团课</button>
+        </view>
+    </view>
+    <modal wx:if="{{lecModal}}" title="团课名称" bindconfirm="handLecAddOK" bindcancel="handLecAddNo">
+        <input type="text" model:value="{{newLecName}}" />
+    </modal>
+
+</page>

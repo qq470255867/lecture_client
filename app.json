@@ -1,0 +1,37 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/edit/edit",
+        "pages/my/my"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "团课学习截图提交小程序",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#999",
+        "selectedColor": "#000000",
+        "backgroundColor": "#fafafa",
+        "position": "bottom",
+        "borderStyle": "black",
+        "list": [
+            {
+                "pagePath": "pages/my/my",
+                "text": "我的",
+                "iconPath": "./icon/wd.png",
+                "selectedIconPath": "./icon/wd_s.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "提交",
+                "iconPath": "./icon/tj.png",
+                "selectedIconPath": "./icon/tj_s.png"
+            }
+        ]
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
+}

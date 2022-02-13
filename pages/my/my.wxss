@@ -1,0 +1,135 @@
+@import '../../lib/iconfont/iconfont.wxss';
+.userinfo {
+    padding: 5%;
+    display: flex;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+
+}
+.userinfo .avatar {
+    width: 30%;
+}
+.userinfo .info_button {
+    width: 70%;
+    text-align: left;
+}
+.userinfo .info {
+    padding: 5%;
+    /* border: rgb(173, 171, 171) 1px solid; */
+    border-radius: 10px;
+    background-color: rgb(252, 250, 250);
+}
+.userinfo  .edit{
+    padding-top: 5%;
+}
+
+.userinfo .avatar image{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.status {
+    display: flex;
+}
+.info_text {
+    padding: 5%;
+    font-size: 80%;
+    color: gray;
+}
+.mysubstatus {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+
+}
+.name_role {
+    display: flex;
+    padding-bottom: 5%;
+}
+.clazz {
+    padding-bottom: 5%;
+}
+.pnum_export {
+    display: flex;
+    padding: 5%;
+    padding-bottom: 0;
+}
+.name_role .name{
+   width: 50%;
+}
+.name_role .role{
+    width: 50%;
+}
+.lecture_date{
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+
+}
+.substatus {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.pnum {
+    /* padding-top: 5%; */
+    width: 70%;
+    font-size: 80%;
+    text-align: right;
+}
+.export{
+    width: 30%;
+}
+.nbutton{
+    padding: 5%;
+}
+.title_sel {
+    display: flex;
+}
+.title_sel .s_title{
+    width: 50%;
+}
+.title_sel .sel {
+    width: 50%;
+    text-align: right;
+}
+.plist {
+    margin-top: 5%;
+    height: 200px;
+    background-color: rgb(252, 250, 250);
+    border-radius: 5%;
+}
+.plist .person {
+    padding: 2%;
+    display: flex;
+}
+.plist .person .pname{
+    width: 50%;
+}
+.plist .person .pstatus{
+    text-align: right;
+    width: 50%;
+}
+.mbutton {
+}
+.cur_lecture {
+    padding: 5%;
+}
+.lec_list {
+    margin-top: 5%;
+    height: 200px;
+    background-color: rgb(252, 250, 250);
+    border-radius: 5%;
+}
+.lec_list .lec{
+    display: flex;
+    padding: 2%;
+}
+
+.lec_list .lec .lname{
+    width: 50%;
+}
+.lec_list .lec .ldate{
+    text-align: right;
+    width: 50%;
+}
