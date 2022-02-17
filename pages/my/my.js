@@ -44,7 +44,8 @@ Page({
         notSubmitedList: [],
         lectures: [],
         lecModal:false,
-        newLecName:''
+        newLecName:'',
+        notGetSubListStatus:true
     },
 
     /**
@@ -187,7 +188,8 @@ Page({
             success: (r) => {
                 if (app.validCode(r.data.code)) {
                     this.setData({
-                        allSubmitedList: r.data.data
+                        allSubmitedList: r.data.data,
+                        notGetSubListStatus:false
                     })
 
                     let data = r.data.data;
@@ -272,16 +274,11 @@ Page({
     },
     getCurLec() {
         wx.request({
-            url: app.serverUrl + '/lec/getLectures',
+            url: app.serverUrl + '/lec/get/curLecture',
             success: (r) => {
                 if (app.validCode(r.data.code)) {
-                    let lec = r.data.data[0];
-                    let date = lec.date + '';
-                    date = date.split('T')[0].toString();
-                    let date_v = 'lecture.date'
                     this.setData({
-                        lecture: lec,
-                        [date_v]: date
+                        lecture:r.data.data
                     })
                 } else {
                     app.showFailMessage(r.data.message)
@@ -370,7 +367,8 @@ Page({
         this.setData({
             user: app.globalData.user,
             clazz: app.globalData.clazz,
-            role: app.globalData.role
+            role: app.globalData.role,
+            notGetSubListStatus:true
         })
     },
     edit() {

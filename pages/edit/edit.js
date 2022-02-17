@@ -46,6 +46,7 @@ Page({
 
     },
     updateData() {
+        
         wx.showLoading()
         //更新用户数据
         this.setData({

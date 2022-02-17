@@ -6,7 +6,7 @@
         <view class="name">
             <view style="width: 50%;">姓名</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-shuru">&nbsp;&nbsp;</text><input placeholder="请填写真实姓名" type="text" bindchange="bindChaneName" model:value="{{user.name}}" /></view>
+                    class="iconfont icon-shuru">&nbsp;&nbsp;</text><input placeholder="请填写真实姓名" type="text"  maxlength="5" bindchange="bindChaneName" model:value="{{user.name}}" /></view>
         </view>
         <view class="clazz">
             <picker bindchange="bindPickerChange" bindchange="handleClazzChange" range-key="name"
@@ -24,17 +24,17 @@
         <view class="m_cname">
             <view style="width: 50%;">班级名称</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-banji1">&nbsp;&nbsp;</text><input type="text " bindchange="bindChaneCName"  model:value="{{clazz.name}}" /></view>
+                    class="iconfont icon-banji1">&nbsp;&nbsp;</text><input type="text " bindchange="bindChaneCName"  maxlength="10"  model:value="{{clazz.name}}" /></view>
         </view>
         <view class="m_code">
             <view style="width: 50%;">班级口令</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-mima">&nbsp;&nbsp;</text><input type="text"  bindchange="bindChaneCode"   model:value="{{clazz.code}}" /></view>
+                    class="iconfont icon-mima">&nbsp;&nbsp;</text><input type="text"  bindchange="bindChaneCode"  maxlength="4"  model:value="{{clazz.code}}" /></view>
         </view>
         <view class="m_num">
             <view style="width: 50%;">班级人数</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-renshu">&nbsp;&nbsp;</text><input type="text" bindchange="bindChanePnum" model:value="{{clazz.pnum}}" /></view>
+                    class="iconfont icon-renshu">&nbsp;&nbsp;</text><input type="text" bindchange="bindChanePnum" maxlength="4" model:value="{{clazz.pnum}}" /></view>
         </view>
         <view class="m_mail">
             <view style="width: 50%;">收件邮箱</view>

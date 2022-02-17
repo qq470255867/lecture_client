@@ -7,7 +7,22 @@
   border-radius: 20px;
   /* background-color: rgb(248, 246, 246); */
 }
+.imgDiv {
+  display: inline-block;
+  position: relative;
+}
+.imgDiv .img_delete{
+  color: red;
+  position: absolute;
+  top: -15px;
+  right: -15px;
 
+}
+.faq_title{
+  padding-top: 5%;
+  text-align: center;
+  color: gray;
+}
 .xhbs {
   color: red;
 }

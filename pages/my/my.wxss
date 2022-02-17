@@ -66,6 +66,14 @@
     border-bottom-style: dashed;
 
 }
+.loading image {
+    padding-top: 40%;
+    width: 50px;
+    height: 50px;
+}
+.loading {
+    text-align: center;
+}
 .substatus {
     padding: 5%;
     border-bottom: 1px solid gray;
@@ -95,7 +103,7 @@
 }
 .plist {
     margin-top: 5%;
-    height: 200px;
+    height: 300px;
     background-color: rgb(252, 250, 250);
     border-radius: 5%;
 }
@@ -114,6 +122,9 @@
 }
 .cur_lecture {
     padding: 5%;
+}
+.lecture_date .lecture{
+    padding-bottom: 3%;
 }
 .lec_list {
     margin-top: 5%;

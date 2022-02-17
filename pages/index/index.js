@@ -242,7 +242,6 @@ Page({
       this.data.img4,
       this.data.img5,
     ]
-    console.log(app.globalData.user.id)
     for (var i = 1; i < 6; i++) {
       wx.uploadFile({
         filePath: img[i],
@@ -256,11 +255,15 @@ Page({
                  
              })
           }else{
-            app.showFailMessage(r.data.message)
+            app.showFailMessage(data.message)
+            this.setData({
+              isupload1:false
+            })
           }
      
       },
       fail:function(e){
+        console.log(e)
         app.showFailMessage(e.errMsg)
       }
       })
@@ -371,7 +374,13 @@ Page({
       img3:'',
       img4:'',
       img5:'',
-      subDisable:true
+      subDisable:true,
+      isupload1:false,
+      isupload2:false,
+      isupload3:false,
+      isupload4:false,
+      isupload5:false,
+
     })
   },
   validCanSubmit(){
@@ -379,7 +388,10 @@ Page({
       this.setData({
         subDisable:false
       })
-    
+    }else{
+      this.setData({
+        subDisable:true
+      })
     }
   },
 
@@ -392,6 +404,41 @@ Page({
       fail: function (res) {},
       complete: function (res) {},
     })
+  },
+  clearimg1(){
+    this.setData({
+      img1:'',
+      isupload1:false
+    })
+    this.validCanSubmit()
+  },
+  clearimg2(){
+    this.setData({
+      img2:'',
+      isupload2:false
+    })
+    this.validCanSubmit()
+  },
+  clearimg3(){
+    this.setData({
+      img3:'',
+      isupload3:false
+    })
+    this.validCanSubmit()
+  },
+  clearimg4(){
+    this.setData({
+      img4:'',
+      isupload4:false
+    })
+    this.validCanSubmit()
+  },
+  clearimg5(){
+    this.setData({
+      img5:'',
+      isupload5:false
+    })
+    this.validCanSubmit()
   }
 
 

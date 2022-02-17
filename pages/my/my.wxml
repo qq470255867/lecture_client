@@ -60,8 +60,9 @@
             </view>
         </view>
 
-        <scroll-view wx:if="{{defaultPickIndex==0}}" scroll-x="true" scroll-y="true" class="plist">
-            <view wx:for="{{allSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
+        <scroll-view  wx:if="{{defaultPickIndex==0}}" scroll-x="true" scroll-y="true" class="plist">
+            <view wx:if="{{notGetSubListStatus}}" class="loading"><image src="../../lib/img/loading.gif"></image> </view>
+            <view wx:key="idx" wx:for="{{allSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
                 <view class="pname"> <text>{{p.user.name}}</text></view>
                 <view class="pstatus"> <text wx:if="{{p.status}}" style="color: green;">已提交</text>
                     <text wx:if="{{!p.status}}" style="color: red;">未提交</text>
@@ -70,7 +71,7 @@
         </scroll-view>
 
         <scroll-view wx:if="{{defaultPickIndex==1}}" scroll-x="true" scroll-y="true" class="plist">
-            <view wx:for="{{submitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
+            <view wx:key="idx" wx:for="{{submitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
 
                 <view class="pname"> <text>{{p.user.name}}</text></view>
                 <view class="pstatus">
@@ -80,7 +81,7 @@
             </view>
         </scroll-view>
         <scroll-view wx:if="{{defaultPickIndex==2}}" scroll-x="true" scroll-y="true" class="plist">
-            <view wx:for="{{notSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
+            <view wx:key="idx" wx:for="{{notSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
 
                 <view class="pname"> <text>{{p.user.name}}</text></view>
                 <view class="pstatus">
@@ -105,8 +106,8 @@
                 class="iconfont icon-mima"></text><text>此处仅管理员可见</text></view>
         <view class="l_title">历史团课</view>
 
-        <scroll-view scroll-y="true" class="lec_list">
-            <view wx:for="{{lectures}}" wx:for-index="idx" wx:for-item="lec" class="lec">
+        <scroll-view  scroll-y="true" class="lec_list">
+            <view wx:key="idx"  wx:for="{{lectures}}" wx:for-index="idx" wx:for-item="lec" class="lec">
                 <view class="lname"> <text>{{lec.name}}</text></view>
                 <view class="ldate">
                     <text style="color: red;">{{lec.date}}</text>

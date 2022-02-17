@@ -1,7 +1,7 @@
 // app.js
 App({
-   serverUrl: "https://www.icycraft.cn/yl/",
-  //  serverUrl: "http://192.168.101.53:8970",
+    //  serverUrl: "https://www.icycraft.cn/yl/",
+      serverUrl: "http://192.168.101.53:8970",
   // serverUrl: "http://192.168.1.108:8080",
   onLaunch() {
     this.login();
@@ -30,7 +30,10 @@ App({
   login() {
     wx.login({
       success: res => {
-        wx.showLoading();
+        wx.showLoading({
+          title:'加载中',                             
+          mask:true                                    
+        });
         var tha = this;
         wx.request({
           url: this.serverUrl + '/login/get/openId/' + res.code,
@@ -38,9 +41,7 @@ App({
           success: (result) => {
             var that = this;
             wx.setStorageSync('openId', result.data.data);
-
             wx.request({
-
               url: this.serverUrl + '/login/login/' + result.data.data,
               //获取用户
               success: (result) => {
@@ -54,7 +55,7 @@ App({
                   },
                   fail: function (errMsg) {
                     wx.hideLoading();
-                    that.showFailMessage(errMsg)
+                    that.showFailMessage(e.errMsg)
                   }
                 })
                 

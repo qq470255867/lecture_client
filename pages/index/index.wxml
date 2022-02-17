@@ -1,35 +1,57 @@
 <!--index.wxml-->
 <view class="l_title">
-    <!-- <view class="title_info">当前课程为：</view> -->
-    <view class="title_value">{{lecture.name}}</view>
-  </view>
+  <!-- <view class="title_info">当前课程为：</view> -->
+  <view class="title_value">{{lecture.name}}</view>
+</view>
 <view class="container">
 
   <view class="edit-img">
     <view class='edit-img1'>
       <view class="text">学前统计页1<text class="xhbs">*</text></view>
-      <image catchtap='chooseImage1' hidden="{{!isupload1}}" src='{{img1}}' mode='aspectFill' />
+      <view class="imgDiv">
+        <image catchtap='chooseImage1' hidden="{{!isupload1}}" src='{{img1}}' mode='aspectFill' />
+        <view bindtap="clearimg1" hidden="{{!isupload1}}" class="img_delete"><text class="iconfont icon-cuowu"></text>
+        </view>
+      </view>
       <view hidden="{{img1}}" class='iconfont icon-add' catchtap='chooseImage1'></view>
     </view>
     <view class='edit-img2'>
       <view class="text">学前统计页2<text class="xhbs">*</text></view>
-      <image catchtap='chooseImage2' hidden="{{!isupload2}}" src='{{img2}}' mode='aspectFill' />
+      <view class="imgDiv">
+        <image catchtap='chooseImage2' hidden="{{!isupload2}}" src='{{img2}}' mode='aspectFill' />
+        <view bindtap="clearimg2" hidden="{{!isupload2}}" class="img_delete"><text class="iconfont icon-cuowu"></text>
+        </view>
+      </view>
       <view hidden="{{img2}}" class='iconfont icon-add' catchtap='chooseImage2'></view>
     </view>
     <view class='edit-img3'>
       <view class="text">信息页<text class="xhbs">*</text></view>
-      <image catchtap='chooseImage3' hidden="{{!isupload3}}" src='{{img3}}' mode='aspectFill' />
+      <view class="imgDiv">
+        <image catchtap='chooseImage3' hidden="{{!isupload3}}" src='{{img3}}' mode='aspectFill' />
+        <view bindtap="clearimg3" hidden="{{!isupload3}}" class="img_delete"><text class="iconfont icon-cuowu"></text>
+        </view>
+      </view>
       <view hidden="{{img3}}" class='iconfont icon-add' catchtap='chooseImage3'></view>
     </view>
     <view class='edit-img4'>
       <view class="text">完成页<text class="xhbs">*</text></view>
-      <image catchtap='chooseImage4' hidden="{{!isupload4}}" src='{{img4}}' mode='aspectFill' />
+      <view class="imgDiv">
+        <image catchtap='chooseImage4' hidden="{{!isupload4}}" src='{{img4}}' mode='aspectFill' />
+        <view bindtap="clearimg4" hidden="{{!isupload4}}" class="img_delete"><text class="iconfont icon-cuowu"></text>
+        </view>
+      </view>
       <view hidden="{{img4}}" class='iconfont icon-add' catchtap='chooseImage4'></view>
     </view>
+
+
     <view class='edit-img5'>
       <view class="text">转发页<text class="xhbs">*</text></view>
-      <image catchtap='chooseImage5' hidden="{{!isupload5}}" src='{{img5}}' mode='aspectFill' />
-      <view hidden="{{img5}}" class='iconfont icon-add' catchtap='chooseImage5'></view>
+      <view class="imgDiv">
+        <image catchtap='chooseImage5' hidden="{{!isupload5}}" src='{{img5}}' mode='aspectFill' />
+        <view bindtap="clearimg5" hidden="{{!isupload5}}" class="img_delete"><text class="iconfont icon-cuowu"></text>
+        </view>
+        <view hidden="{{img5}}" class='iconfont icon-add' catchtap='chooseImage5'></view>
+      </view>
     </view>
   </view>
   <view style="display: flex;" class="confirm">
@@ -39,8 +61,9 @@
   </view>
 
 </view>
+<view class="faq_title">F&Q</view>
 <view class="info">
-  <text user-select='true' wx:for="{{faq}}" wx:for-index="idx" wx:for-item="itemName">
+  <text user-select='true' wx:key="idx" wx:for="{{faq}}" wx:for-index="idx" wx:for-item="itemName">
     {{idx}}. {{itemName.content}}
   </text>
 </view>
