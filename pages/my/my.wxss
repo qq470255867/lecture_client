@@ -29,30 +29,43 @@
     border-radius: 50%;
 }
 .status {
+    padding-bottom: 3%;
     display: flex;
 }
 .info_text {
+    
     padding: 5%;
+    padding-top: 0;
     font-size: 80%;
     color: gray;
 }
 .mysubstatus {
     padding: 5%;
+    padding-right: 0;
     border-bottom: 1px solid gray;
     border-bottom-style: dashed;
-
+    display: flex;
+}
+.mysubstatus .opt {
+    width: 20%;
+    margin-left: 2%;
+}
+.status_time {
+    width: 80%;
 }
 .name_role {
     display: flex;
     padding-bottom: 5%;
 }
-.clazz {
+/* .clazz {
     padding-bottom: 5%;
+} */
+.mail {
+    padding-top: 5%;
 }
 .pnum_export {
     display: flex;
-    padding: 5%;
-    padding-bottom: 0;
+    padding: 5%;    
 }
 .name_role .name{
    width: 50%;
@@ -118,7 +131,11 @@
     text-align: right;
     width: 50%;
 }
+.ewm {
+    padding: 5%;
+}
 .mbutton {
+    /* padding-top: 5%; */
 }
 .cur_lecture {
     padding: 5%;
@@ -143,4 +160,8 @@
 .lec_list .lec .ldate{
     text-align: right;
     width: 50%;
+}
+input {
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
 }

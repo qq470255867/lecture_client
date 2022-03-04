@@ -52,7 +52,9 @@ Page({
         this.setData({
             'user.avatar':app.globalData.user.avatar
         })
+        console.log(this.data.user)
         wx.request({
+            
             url: app.serverUrl + '/user/update/',
             data: this.data.user,
             header: {
@@ -60,6 +62,7 @@ Page({
             },
             method: 'POST',
             success: (res) => {
+             
                 if (app.validCode(res.data.code)) {
                     //更新全局数据
                     //用户
@@ -103,10 +106,6 @@ Page({
                             app.showFailMessage(e.errMsg)
                         }
                     })
-
-
-
-
                     wx.hideLoading()
                     wx.navigateBack()
                 } else {
@@ -170,7 +169,6 @@ Page({
 
     },
     handleClazzChange: function (e) {
-
         this.setData({
             codeModalShow: true
         })

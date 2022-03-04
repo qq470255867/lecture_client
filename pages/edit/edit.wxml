@@ -6,49 +6,57 @@
         <view class="name">
             <view style="width: 50%;">姓名</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-shuru">&nbsp;&nbsp;</text><input placeholder="请填写真实姓名" type="text"  maxlength="5" bindchange="bindChaneName" model:value="{{user.name}}" /></view>
+                    class="iconfont icon-shuru">&nbsp;&nbsp;</text><input placeholder="请填写真实姓名" type="text"
+                    maxlength="5" bindchange="bindChaneName" model:value="{{user.name}}" /></view>
         </view>
         <view class="clazz">
-            <picker bindchange="bindPickerChange" bindchange="handleClazzChange" range-key="name"
-                value="{{defaultPickIndex}}" range="{{clazzs}}">
+            <picker bindchange="handleClazzChange" range-key="name" value="{{defaultPickIndex}}" range="{{clazzs}}">
                 <view class="clazz_picker">
                     <view style="width: 50%;">班级</view>
                     <view style="width: 50%;"><text decode="{{true}}" space="{undefined{true}}"
-                            class='iconfont icon-liebiao'>&nbsp;&nbsp;</text>{{clazzs[defaultPickIndex].name}}</view>
+                            class='iconfont icon-liebiao'>&nbsp;&nbsp;</text><text>{{clazzs[defaultPickIndex].name}}</text>
+                    </view>
                 </view>
             </picker>
         </view>
     </view>
-    <view class="m_info" wx:if="{{role.id>=1}}" >
-        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text class="iconfont icon-mima"></text> <text >此处仅团支书可见</text></view>
+    <view class="m_info" wx:if="{{role.id>=1}}">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text> <text>此处仅团支书可见</text></view>
         <view class="m_cname">
             <view style="width: 50%;">班级名称</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-banji1">&nbsp;&nbsp;</text><input type="text " bindchange="bindChaneCName"  maxlength="10"  model:value="{{clazz.name}}" /></view>
+                    class="iconfont icon-banji1">&nbsp;&nbsp;</text><input type="text " bindchange="bindChaneCName"
+                    maxlength="10" model:value="{{clazz.name}}" /></view>
         </view>
         <view class="m_code">
             <view style="width: 50%;">班级口令</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-mima">&nbsp;&nbsp;</text><input type="text"  bindchange="bindChaneCode"  maxlength="4"  model:value="{{clazz.code}}" /></view>
+                    class="iconfont icon-mima">&nbsp;&nbsp;</text><input type="text" bindchange="bindChaneCode"
+                    maxlength="4" model:value="{{clazz.code}}" /></view>
         </view>
         <view class="m_num">
             <view style="width: 50%;">班级人数</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-renshu">&nbsp;&nbsp;</text><input type="text" bindchange="bindChanePnum" maxlength="4" model:value="{{clazz.pnum}}" /></view>
+                    class="iconfont icon-renshu">&nbsp;&nbsp;</text><input type="text" bindchange="bindChanePnum"
+                    maxlength="4" model:value="{{clazz.pnum}}" /></view>
         </view>
         <view class="m_mail">
             <view style="width: 50%;">收件邮箱</view>
             <view style="width: 50%; display: flex;"><text decode="{{true}}" space="{undefined{true}}"
-                    class="iconfont icon-youxiang">&nbsp;&nbsp;</text><input type="text" bindchange="bindChaneMail"  model:value="{{user.mail}}" /></view>
+                    class="iconfont icon-youxiang">&nbsp;&nbsp;</text><input type="text" placeholder="收件邮箱"
+                    bindchange="bindChaneMail" model:value="{{user.mail}}" /></view>
         </view>
     </view>
     <view class="confirm">
-    <button type="primary" style="font-size: 80%;" bindtap="updateData" disabled="{{confirmdisabled}}">确认修改</button>
-    
+        <button type="primary" style="font-size: 80%;" bindtap="updateData" disabled="{{confirmdisabled}}">确认修改</button>
+
     </view>
-    <modal wx:if="{{codeModalShow}}" title="请输入班级口令（由团支书设置并告知）" bindconfirm="handleCodeOK" bindcancel="handCodedNo">
+    <modal wx:if="{{codeModalShow}}" title="加入{{clazzs[userWantChangeClazzId].name}}" bindconfirm="handleCodeOK"
+        bindcancel="handCodedNo">
+        <view wx:if="{{!inputNotCorrect}}" class="modal_info">请输入...</view>
         <view wx:if="{{inputNotCorrect}}" class="err_msg">错误，请重新输入</view>
-        <input placeholder="班级口令" type="text" model:value="{{code}}" />
+        <input password="true" placeholder="班级口令（由团支书设置并告知）" type="text" model:value="{{code}}" />
     </modal>
 
 </page>

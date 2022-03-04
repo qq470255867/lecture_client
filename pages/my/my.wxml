@@ -35,20 +35,28 @@
         <view class="date">更新时间：{{lecture.date}}</view>
     </view>
     <view class="mysubstatus">
-        <view class="status">提交状态：
-            <text wx:if="{{record.id}}" style="color: green;">已提交</text>
-            <view wx:if="{{record.id}}" style="width: 50%; text-align: right;"><button size="mini" type="primary"
-                    style="font-size: 80%;" bindtap="downloadZip">查看</button></view>
-            <text wx:if="{{!record.id}}" style="color: red;">未提交</text>
+
+        <view class="status_time">
+            <view class="status">提交状态：
+                <text wx:if="{{record.id}}" style="color: green;">已提交</text>
+                <text wx:if="{{!record.id}}" style="color: red;">未提交</text>
+            </view>
+            <view wx:if="{{record.date}}" class="time">提交时间：{{record.date}}</view>
         </view>
-        <view wx:if="{{record.date}}" class="status_time">提交时间：{{record.date}}</view>
+        <view class="opt">
+            <view wx:if="{{record.id}}"><button size="mini" type="primary" style="font-size: 80%;"
+                    bindtap="downloadZip">查看</button> <button size="mini" type="warn" style="font-size: 80%;"
+                    bindtap="deleteZip">撤销</button></view>
+        </view>
+
+
     </view>
     <view wx:if="{{role.id>=1}}" class="substatus">
         <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
                 class="iconfont icon-mima"></text><text>此处仅团支书可见</text></view>
 
         <view class="title_sel">
-            <view class="s_title">名单</view>
+            <view class="s_title"><text class="iconfont icon-mingdan"></text><text>  名单</text></view>
             <view class="sel">
                 <picker bindchange="bindPickerChange" value="{{defaultPickIndex}}" range="{{pickData}}">
 
@@ -60,8 +68,10 @@
             </view>
         </view>
 
-        <scroll-view  wx:if="{{defaultPickIndex==0}}" scroll-x="true" scroll-y="true" class="plist">
-            <view wx:if="{{notGetSubListStatus}}" class="loading"><image src="../../lib/img/loading.gif"></image> </view>
+        <scroll-view wx:if="{{defaultPickIndex==0}}" scroll-x="true" scroll-y="true" class="plist">
+            <view wx:if="{{notGetSubListStatus}}" class="loading">
+                <image src="../../lib/img/loading.gif"></image>
+            </view>
             <view wx:key="idx" wx:for="{{allSubmitedList}}" wx:for-index="idx" wx:for-item="p" class="person">
                 <view class="pname"> <text>{{p.user.name}}</text></view>
                 <view class="pstatus"> <text wx:if="{{p.status}}" style="color: green;">已提交</text>
@@ -91,11 +101,15 @@
             </view>
         </scroll-view>
         <view class="pnum_export">
-            <view class="export"><button type="primary" size="mini" style="font-size: 80%;" bindtap="export">打印此页</button></view>
+            <view class="export"><button type="primary" size="mini" style="font-size: 80%;"
+                    bindtap="export">打印此页</button></view>
             <view class="pnum">提交人数/班内人数：{{submitNum}}/{{clazz.pnum}}</view>
         </view>
-        <view class="info_text"><text class="iconfont icon-tishi"></text>名单不全？可能是因为还有同学未注册小程序</view>
-
+        <view wx:if="{{clazz.pnum-clazz.realPnum==0}}" class="info_text"><text class="iconfont icon-tishi"></text>  你班里所有同学都注册了小程序，感谢！😄
+        </view>
+        <view wx:if="{{clazz.pnum-clazz.realPnum!=0}}" class="info_text"><text class="iconfont icon-tishi"></text> 你的班级还有<text
+                style="color: red;">{{clazz.pnum-clazz.realPnum}}</text>名同学未注册小程序！
+        </view>
         <view class="mbutton">
             <button style="font-size: 80%;" type="primary" bindtap="postEmail">收件到我的邮箱</button>
         </view>
@@ -104,10 +118,10 @@
     <view class="cur_lecture" wx:if="{{role.id>=2}}">
         <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
                 class="iconfont icon-mima"></text><text>此处仅管理员可见</text></view>
-        <view class="l_title">历史团课</view>
+        <view class="l_title"><text class="iconfont icon-lishijilu_huaban"></text><text>  历史团课</text></view>
 
-        <scroll-view  scroll-y="true" class="lec_list">
-            <view wx:key="idx"  wx:for="{{lectures}}" wx:for-index="idx" wx:for-item="lec" class="lec">
+        <scroll-view scroll-y="true" class="lec_list">
+            <view wx:key="idx" wx:for="{{lectures}}" wx:for-index="idx" wx:for-item="lec" class="lec">
                 <view class="lname"> <text>{{lec.name}}</text></view>
                 <view class="ldate">
                     <text style="color: red;">{{lec.date}}</text>
@@ -120,7 +134,7 @@
         </view>
     </view>
     <modal wx:if="{{lecModal}}" title="团课名称" bindconfirm="handLecAddOK" bindcancel="handLecAddNo">
-        <input type="text" model:value="{{newLecName}}" />
+        <input class="name_inp" type="text" model:value="{{newLecName}}" />
     </modal>
 
 </page>

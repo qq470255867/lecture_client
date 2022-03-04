@@ -5,7 +5,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        
         pickData: ['全部', '已提交', '未提交'],
         defaultPickIndex: 0,
         user: {
@@ -21,7 +20,8 @@ Page({
             id: '',
             name: '',
             pnum: '',
-            code: ''
+            code: '',
+            realPnum:''
         },
         role: {
             id: '',
@@ -47,7 +47,41 @@ Page({
         newLecName:'',
         notGetSubListStatus:true
     },
-
+    deleteZip(){
+        wx.showModal({
+            title: '提示',
+            content: '撤销后无法恢复，确定吗',
+            success: (res)=> {
+              if (res.confirm) {
+                  wx.showLoading({
+                    title: '删除中',
+                  })
+                wx.request({
+                    url: app.serverUrl+'/delete/'+app.globalData.user.id,
+                    success:(r)=> {
+                        if(app.validCode(r.data.code)){
+                            this.setData({
+                                record:{}
+                            })
+                            wx.showToast({
+                              title: '删除成功',
+                            })
+                            wx.hideLoading()
+                        }else{
+                          app.showFailMessage(r.data.message)
+                          wx.hideLoading()
+                        }
+                   
+                    },
+                    fail:function(e){
+                      app.showFailMessage(e.errMsg)
+                      wx.hideLoading()
+                    }
+                  })
+              } 
+            }
+          })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -65,6 +99,9 @@ Page({
         if (this.data.role.id > 1) {
             this.getHistoryLectures();
         }
+        
+    },
+    getUserById(){
     },
     showShareMenu (){
         wx.showShareMenu({

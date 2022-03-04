@@ -3,11 +3,16 @@
 .err_msg{
     color: red;
     text-align: center;
+    padding: 5%;
 }
 .title {
     text-align: center;
     padding: 5%;
     font-size: 150%;
+}
+.modal_info {
+    text-align: center;
+    padding: 5%;
 }
 .u-info {
     padding: 5%;
@@ -44,5 +49,6 @@ input {
     display: flex;
 }
 .confirm {
+    margin-top: 20%;
     padding: 5%;
 }

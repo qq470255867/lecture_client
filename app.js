@@ -1,9 +1,10 @@
 // app.js
 App({
-    //  serverUrl: "https://www.icycraft.cn/yl/",
-      serverUrl: "http://192.168.101.53:8970",
-  // serverUrl: "http://192.168.1.108:8080",
+           serverUrl: "https://www.icycraft.cn/yl",
+          // serverUrl: "http://192.168.1.108:8970",
+  //  serverUrl: "http://192.168.1.108:8970",
   onLaunch() {
+    // this.getConfig();
     this.login();
   },
   globalData: {
@@ -20,12 +21,32 @@ App({
       id: '',
       name: '',
       pnum: '',
-      code: ''
+      code: '',
+      realPnum:''
     },
     role: {
       id: '',
       name: ''
+    },
+    defaultConfig: {
+      uploadVersion : ''
     }
+  },
+  getConfig(){
+    let that = this
+    wx.request({
+      url: this.serverUrl+'/config/get',
+      success:(r)=> {
+          if(this.validCode(r.data.code)){
+            this.globalData.defaultConfig = r.data.data
+          }else{
+            this.showFailMessage(r.data.message)
+          }
+      },
+      fail:function(e){
+        app.showFailMessage(e.errMsg)
+      }
+    })
   },
   login() {
     wx.login({
@@ -46,6 +67,7 @@ App({
               //获取用户
               success: (result) => {
                 this.globalData.user = result.data.data;
+                wx.setStorageSync('user',result.data.data)
                 //获取角色
                 wx.request({
                   url: this.serverUrl + '/role/get/' + this.globalData.user.roleId,
@@ -65,7 +87,6 @@ App({
                     url: this.serverUrl + '/clazz/get/' + this.globalData.user.clazzId,
                     success: (result) => {
                       this.globalData.clazz = result.data.data;
-                      //获取角色
                     },
                     fail: function ({
                       errMsg

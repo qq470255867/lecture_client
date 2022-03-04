@@ -7,6 +7,24 @@
   border-radius: 20px;
   /* background-color: rgb(248, 246, 246); */
 }
+.sw_v {
+  display: flex;
+}
+.sw_v .welcome {
+  width: 50%;
+  color: gray;
+  font-size: 80%;
+  padding-left: 5%;
+}
+
+.sw_v .version_picker {
+  width: 50%;
+  color: gray;
+  font-size: 80%;
+  text-align: right;
+  padding-right: 5%;
+}
+
 .imgDiv {
   display: inline-block;
   position: relative;
