@@ -104,6 +104,7 @@
 .nbutton{
     padding: 5%;
 }
+
 .title_sel {
     display: flex;
 }
@@ -113,6 +114,21 @@
 .title_sel .sel {
     width: 50%;
     text-align: right;
+}
+.req_title {
+    display: flex;
+}
+.num_req {
+    background-color: rgb(255, 61, 61);
+    border-radius: 30px;
+    font-size: 11px;
+    color: white;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    width: 15px;
+    height: 15px;
+    text-align:center;
+	vertical-align:middle;	
 }
 .plist {
     margin-top: 5%;
@@ -139,6 +155,8 @@
 }
 .cur_lecture {
     padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
 }
 .lecture_date .lecture{
     padding-bottom: 3%;
@@ -164,4 +182,70 @@
 input {
     border-bottom: 1px solid gray;
     border-bottom-style: dashed;
+}
+.uj_show {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.create_clazz {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.faq_list {
+    color: gray;
+    text-align: left;
+    font-size: 80%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+}
+.pic_show {
+    text-align: center;
+    background-color: rgb(252, 250, 250);
+    border-radius: 5%;
+
+}
+.create_req {
+    padding: 5%;
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.req_info {
+    padding: 5%;
+    background-color: rgb(252, 250, 250);
+    border-radius: 5%;
+}
+.req_info .s{
+    display: flex;
+    padding-bottom: 5%;
+}
+
+.req_info .s .sk{
+    width: 50%;
+}
+.req_info .s .sv{
+    word-wrap:break-word;
+    text-align: left;
+    width: 50%;
+}
+.req_info .b{
+    display: flex;
+}
+.req_info .b .f{
+    text-align: center;
+   width: 50%;
+}
+
+.req_info .b .t{
+    text-align: center;
+    width: 50%;
+}
+.nomoreReq {
+    width: 300px;
+    height: 200px;
+    display: table-cell;
+    vertical-align: middle;
+    color: gray;
+    text-align: center;
 }

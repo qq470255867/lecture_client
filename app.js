@@ -1,7 +1,8 @@
 // app.js
 App({
-           serverUrl: "https://www.icycraft.cn/yl",
-          // serverUrl: "http://192.168.1.108:8970",
+  serverUrl: "https://www.icycraft.cn/yl/",
+              // serverUrl: "https://www.icycraft.cn/yltest",
+            //  serverUrl: "http://192.168.1.108:8970",
   //  serverUrl: "http://192.168.1.108:8970",
   onLaunch() {
     // this.getConfig();
@@ -30,7 +31,8 @@ App({
     },
     defaultConfig: {
       uploadVersion : ''
-    }
+    },
+    userOpenId:''
   },
   getConfig(){
     let that = this
@@ -62,6 +64,7 @@ App({
           success: (result) => {
             var that = this;
             wx.setStorageSync('openId', result.data.data);
+            this.globalData.userOpenId = result.data.data
             wx.request({
               url: this.serverUrl + '/login/login/' + result.data.data,
               //获取用户
@@ -81,7 +84,7 @@ App({
                   }
                 })
                 
-                if (this.globalData.user.clazzId) {
+                if (this.globalData.user.clazzId >= 0) {
                   //获取班级
                   wx.request({
                     url: this.serverUrl + '/clazz/get/' + this.globalData.user.clazzId,

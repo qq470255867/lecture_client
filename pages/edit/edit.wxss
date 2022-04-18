@@ -21,6 +21,7 @@
 }
 .u-info .name {
     display: flex;
+    padding-bottom: 2%;
 }
 input {
     border-bottom: 1px solid gray;
@@ -37,18 +38,26 @@ input {
 
 .m_info .m_code{
     display: flex;
+    padding-bottom: 2%;
 }
 .m_info .m_cname{
     display: flex;
+    padding-bottom: 2%;
 }
 .m_info .m_num {
     display: flex;
+    padding-bottom: 2%;
 }
 
 .m_info .m_mail {
     display: flex;
+    padding-bottom: 2%;
 }
 .confirm {
-    margin-top: 20%;
-    padding: 5%;
+    position:fixed;
+    bottom:10%;
+    width: 100%
 }
+.xhbs {
+    color: red;
+  }

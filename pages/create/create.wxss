@@ -1,0 +1,48 @@
+@import '../../lib/iconfont/iconfont.wxss';
+.title {
+    text-align: center;
+    padding: 5%;
+    font-size: 150%;
+}
+.info {
+    padding: 5%;
+    border-radius: 20px;
+    background-color: rgb(252, 250, 250);
+}
+input {
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+}
+.s_name {
+    display: flex;
+    padding: 5%;
+}
+.c_name {
+    display: flex;
+    padding: 5%;
+}
+.m_name {
+    display: flex;
+    padding: 5%;
+}
+.m_mail {
+    display: flex;
+    padding: 5%;
+}
+.m_info {
+    padding: 5%;
+    display: flex;
+}
+textarea {
+    border-bottom: 1px solid gray;
+    border-bottom-style: dashed;
+
+}
+.confirm {
+    position:fixed;
+    bottom:10%;
+    width: 100%
+}
+.xhbs {
+    color: red;
+  }

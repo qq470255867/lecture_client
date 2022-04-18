@@ -1,5 +1,4 @@
 <!--index.wxml-->
-
 <view class="l_title">
   <!-- <view class="title_info">当前课程为：</view> -->
   <view class="title_value">{{lecture.name}}</view>
@@ -26,6 +25,19 @@
         </view>
         <view hidden="{{img3}}" class='iconfont icon-add' catchtap='chooseImage3'></view>
       </view>
+      <view class='edit-img4'>
+        <view class="text">完成页<text class="xhbs">*</text></view>
+        <view class="imgDiv">
+          <image catchtap='chooseImage4' hidden="{{!isupload4}}" src='{{img4}}' mode='aspectFill' />
+          <view bindtap="clearimg4" hidden="{{!isupload4}}" class="img_delete"><text class="iconfont icon-cuowu"></text>
+          </view>
+        </view>
+        <view hidden="{{img4}}" class='iconfont icon-add' catchtap='chooseImage4'></view>
+      </view>
+    </view>
+  </view>
+  <view class="edit-img">
+    <view wx:if="{{defaultVerisonIdx==2}}">
       <view class='edit-img4'>
         <view class="text">完成页<text class="xhbs">*</text></view>
         <view class="imgDiv">
@@ -94,12 +106,10 @@
   <view style="display: flex;" class="confirm">
     <view style="width: 100%;"> <button bindtap="post" type="primary" disabled="{{subDisable}}"><text>提交</text></button>
     </view>
-
   </view>
-
 </view>
 <view class="faq_title"><text class="iconfont icon-mingdan">  F&Q</text></view>
-<view bindlongpress="addegginfo" class="info">
+<view  class="info">
   <text user-select='true' wx:key="idx" wx:for="{{faq}}" wx:for-index="idx" wx:for-item="itemName">
     {{idx}}. {{itemName.content}}
   </text>
@@ -107,4 +117,8 @@
 <view animation="{{eggAmi}}" class="info"> <text>{{egg}}</text></view>
 <view  class="ewm">
   <image animation="{{picAmi}}"  src="{{wx2wmUrl}}" bindtap="preview" />
+</view>
+<view bindlongpress="addegginfo" class="buttom_info">
+  <view class="myinfo">© 2022, made with ❤ by Kang Xiao Yu for a better web.</view>
+  <view class="ver">Ver: 2.3.11</view>
 </view>

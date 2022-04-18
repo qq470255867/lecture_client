@@ -188,3 +188,17 @@
   width: 150px;
   height: 150px;
 }
+.buttom_info {
+  font-size: 30%;
+  color: gray;
+  padding: 5%;
+  padding-bottom: 2%;
+  display: flex;
+}
+.buttom_info .myinfo {
+  width: 85%;
+}
+.buttom_info .ver {
+  width: 15%;
+  text-align: right;
+}

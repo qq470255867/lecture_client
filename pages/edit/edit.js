@@ -6,55 +6,44 @@ Page({
      * 页面的初始数据
      */
     data: {
-        // user: {
-        //     id: '',
-        //     name: '',
-        //     avatar:'',
-        //     clazzId: '',
-        //     roleId: '',
-        //     mail: '',
-        //     wxId: ''
-        // },
-        user:app.globalData.user,
-        // clazz: {
-        //     id: '',
-        //     name: '',
-        //     pnum: '',
-        //     code: ''
-        // },
-        clazz:app.globalData.clazz,
-
-        // role: {
-        //     id: '',
-        //     name: ''
-        // },
-        role:app.globalData.role,
+        user: {},
+        clazz: {},
+        role: {},
         defaultPickIndex: -1,
         userWantChangeClazzId: '',
         inputNotCorrect: false,
         codeModalShow: false,
         clazzs: [],
-        confirmdisabled: true
+        confirmdisabled: true,
+        code:''
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
         this.getClazzs()
-
+       
     },
+
     updateData() {
-        
+
         wx.showLoading()
         //更新用户数据
         this.setData({
-            'user.avatar':app.globalData.user.avatar
+            'user.avatar': app.globalData.user.avatar
         })
-        console.log(this.data.user)
+        if (!this.data.user.name) {
+            wx.showToast({
+                title: '姓名不能为空',
+                icon: 'error',
+                mask: true,
+                duration: 1000
+            })
+            return
+        }
         wx.request({
-            
+
             url: app.serverUrl + '/user/update/',
             data: this.data.user,
             header: {
@@ -62,7 +51,7 @@ Page({
             },
             method: 'POST',
             success: (res) => {
-             
+
                 if (app.validCode(res.data.code)) {
                     //更新全局数据
                     //用户
@@ -136,15 +125,41 @@ Page({
         })
     },
     setDefaultData() {
-        let id =  app.globalData.user.id
-        wx.showLoading()
+        let id = app.globalData.user.id
+        wx.showLoading({
+            mask: true
+        })
         wx.request({
-            url: app.serverUrl + '/user/get/'+id,
+            url: app.serverUrl + '/user/get/' + id,
             success: (r) => {
                 if (app.validCode(r.data.code)) {
                     this.setData({
-                        user:r.data.data,
+                        user: r.data.data,
                     })
+                    wx.showLoading({
+                        mask: true
+                    })
+                    wx.request({
+                        url: app.serverUrl + '/clazz/get/' + this.data.user.clazzId,
+                        success: (r) => {
+                            if (app.validCode(r.data.code)) {
+                                this.setData({
+                                    clazz: r.data.data
+                                })
+                                wx.hideLoading()
+                            } else {
+                                app.showFailMessage(r.data.message)
+                                wx.hideLoading()
+                            }
+
+                        },
+                        fail: function (e) {
+                            app.showFailMessage(e.errMsg)
+                            wx.hideLoading()
+                        }
+                    })
+
+
                     wx.hideLoading()
                 } else {
                     app.showFailMessage(r.data.message)
@@ -155,30 +170,45 @@ Page({
                 app.showFailMessage(e.errMsg)
             }
         })
-        let gbData =  app.globalData
+        let gbData = app.globalData
         this.setData({
             defaultPickIndex: gbData.clazz.id,
             clazz: gbData.clazz,
             role: gbData.role
         })
-        if (this.data.clazz.id) {
-            this.setData({
-                confirmdisabled: false
-            })
-        }
+
 
     },
     handleClazzChange: function (e) {
         this.setData({
-            codeModalShow: true
+            userWantChangeClazzId: e.detail.value
         })
         this.setData({
-            userWantChangeClazzId: e.detail.value
+            codeModalShow: true
         })
     },
     handleCodeOK() {
 
-        if(!this.data.code){
+        if (!this.data.code&&this.data.userWantChangeClazzId!=0) {
+            return
+        }
+        if (this.data.userWantChangeClazzId==0) {
+            this.setData({
+                codeModalShow: false,
+                inputNotCorrect: false,
+                code: '',
+                defaultPickIndex: this.data.userWantChangeClazzId,
+                'user.clazzId': this.data.userWantChangeClazzId,
+                clazz: {
+                    id:0,
+                    name:'内容体验',
+                    pnum:1,
+                    code:1,
+                    realPnum:1
+                },
+            })
+            app.globalData.clazz = this.data.clazz
+            this.setConfirmDisAble()
             return
         }
         wx.showLoading()
@@ -194,19 +224,19 @@ Page({
                             defaultPickIndex: this.data.userWantChangeClazzId,
                             'user.clazzId': this.data.userWantChangeClazzId,
                             clazz: r.data.data,
-                            confirmdisabled: false
+
                         })
                         app.globalData.clazz = r.data.data
                         wx.hideLoading({
                             success: (res) => {},
                         })
+                        this.setConfirmDisAble()
                     } else {
                         this.setData({
                             codeModalShow: true,
                             inputNotCorrect: true
                         })
                         wx.hideLoading({
-                            success: (res) => {},
                         })
                     }
 
@@ -240,29 +270,40 @@ Page({
         })
     },
     bindChaneName: function (e) {
+
         this.setData({
             'user.name': e.detail.value
         })
+        this.setConfirmDisAble()
     },
     bindChaneCode: function (e) {
         this.setData({
             'clazz.code': e.detail.value
+        })
+        this.setConfirmDisAble()
+    },
+    bindCodeInput: function(e) {
+        this.setData({
+            code:e.detail.value
         })
     },
     bindChaneCName: function (e) {
         this.setData({
             'clazz.name': e.detail.value
         })
+        this.setConfirmDisAble()
     },
     bindChanePnum: function (e) {
         this.setData({
             'clazz.pnum': e.detail.value
         })
+        this.setConfirmDisAble()
     },
     bindChaneMail: function (e) {
         this.setData({
             'user.mail': e.detail.value
         })
+        this.setConfirmDisAble()
     },
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -311,5 +352,16 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+    setConfirmDisAble() {
+        if (this.data.user.name && this.data.user.clazzId >= 0 && this.data.clazz.name && this.data.clazz.pnum && this.data.clazz.code) {
+            this.setData({
+                confirmdisabled: false
+            })
+        } else {
+            this.setData({
+                confirmdisabled: true
+            })
+        }
     }
 })

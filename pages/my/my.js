@@ -45,7 +45,13 @@ Page({
         lectures: [],
         lecModal:false,
         newLecName:'',
-        notGetSubListStatus:true
+        notGetSubListStatus:true,
+        faqlist:[],
+        create_reqs:[],
+        create_req:{},
+        reqIndex:0,
+        reqNum:0,
+        hasReq:false
     },
     deleteZip(){
         wx.showModal({
@@ -87,6 +93,8 @@ Page({
      */
     onLoad: function (options) {
         this.refreshGlobal();
+        this.getClazzCreateFaq();
+        this.getCreateReqs();
     },
     onShow: function () {
         this.refreshGlobal();
@@ -165,6 +173,7 @@ Page({
 	if (str.test(this.data.user.mail)) {
         wx.showLoading({
           title: '发送中',
+          mask:true
         })
         wx.request({
             url: app.serverUrl+'/mail/'+this.data.user.id,
@@ -258,7 +267,7 @@ Page({
           title: '正在下载',
           icon: 'loading',
           mask: true,
-          duration: 10000
+          duration: 5000
         })
         wx.downloadFile({ //下载
           url: app.serverUrl + '/download/' + this.data.user.id,
@@ -266,7 +275,9 @@ Page({
           success: function (res) {
             wx.openDocument({ //打开
               filePath: wx.env.USER_DATA_PATH + '/' + that.data.user.name + '青年大学习.zip',
-              success: function (res) {}
+              success: function (res) {
+
+              }
             })
     
           }
@@ -408,6 +419,37 @@ Page({
             notGetSubListStatus:true
         })
     },
+    toCreateClazz(){
+        wx.navigateTo({
+            url: '/pages/create/create',
+        })
+    },
+    getClazzCreateFaq(){
+        wx.showLoading({
+            mask:true
+        })
+        wx.request({
+            url: app.serverUrl + '/clazz/faq/list',
+            success: (r) => {
+                if (app.validCode(r.data.code)) {
+                    this.setData({
+                        faqlist:r.data.data
+                    })
+                    wx.hideLoading()
+                } else {
+                    app.showFailMessage(r.data.message)
+	    wx.hideLoading()
+                }
+
+            },
+            fail: function (e) {
+                app.showFailMessage(e.errMsg)
+	wx.hideLoading()
+            }
+        })
+    },
+
+    
     edit() {
         this.getUserAvatar();
         this.refreshGlobal();
@@ -461,6 +503,112 @@ Page({
                         }
                     }
                 });
+            }
+        })
+    },
+    getCreateReqs() {
+        wx.showLoading({
+            mask:true
+        })
+        wx.request({
+            url: app.serverUrl + '/clazz/get/list/create',
+            success: (r) => {
+                if (app.validCode(r.data.code)) {
+                    if(r.data.data.length>0){
+                        this.setData({
+                            hasReq:true
+                        })
+                        this.setData({
+                            create_reqs:r.data.data,
+                            create_req:r.data.data[this.data.reqIndex],
+                            reqNum:r.data.data.length
+                        })
+                    }else {
+                        this.setData({
+                            hasReq:false
+                        })
+                    }
+
+
+                    wx.hideLoading()
+                } else {
+                    app.showFailMessage(r.data.message)
+	                wx.hideLoading()
+                }
+
+            },
+            fail: function (e) {
+                app.showFailMessage(e.errMsg)
+	            wx.hideLoading()
+            }
+        })
+    },
+    nextCreateReq(){
+        if(this.data.reqNum>1){
+            this.setData({
+                reqIndex: this.data.reqIndex+1,
+            })
+            console.log(this.data.create_reqs[this.data.reqIndex])
+            this.setData({
+                create_req : this.data.create_reqs[this.data.reqIndex]
+            })
+            this.setData({
+                reqNum:this.data.reqNum-1
+            })
+        }else  {
+            this.setData({
+                hasReq:false,
+                reqNum:this.data.reqNum-1
+            })
+        }
+    },
+    passReq(){
+        wx.showLoading({
+            mask:true
+        })
+        wx.request({
+            url: app.serverUrl + '/clazz/deal/create/req/'+this.data.create_req.id+'/1',
+            success: (r) => {
+                if (app.validCode(r.data.code)) {
+                    wx.showToast({
+                      title: '完成',
+                    })
+                    //删除处理的请求
+                    this.nextCreateReq()
+                    wx.hideLoading()
+                } else {
+                    app.showFailMessage(r.data.message)
+	                wx.hideLoading()
+                }
+            },
+            fail: function (e) {
+                app.showFailMessage(e.errMsg)
+	            wx.hideLoading()
+            }
+        })
+    },
+
+    rejectReq(){
+        wx.showLoading({
+            mask:true
+        })
+        wx.request({
+            url: app.serverUrl + '/clazz/deal/create/req/'+this.data.create_req.id+'/2',
+            success: (r) => {
+                if (app.validCode(r.data.code)) {
+                    wx.showToast({
+                      title: '完成',
+                    })
+                    this.nextCreateReq()
+                    wx.hideLoading()
+                } else {
+                    app.showFailMessage(r.data.message)
+	                wx.hideLoading()
+                }
+            },
+            fail: function (e) {
+                app.showFailMessage(e.errMsg)
+	            wx.hideLoading()
             }
         })
     }

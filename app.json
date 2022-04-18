@@ -3,12 +3,13 @@
         "pages/index/index",
         "pages/logs/logs",
         "pages/edit/edit",
-        "pages/my/my"
+        "pages/my/my",
+        "pages/create/create"
     ],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "团课学习截图提交小程序",
+        "navigationBarTitleText": "团课学习截图提交小助手",
         "navigationBarTextStyle": "black"
     },
     "tabBar": {

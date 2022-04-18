@@ -26,7 +26,8 @@ Page({
     egg: '',
     egginfo: '',
     eggAmi: {},
-    picAmi: {}
+    picAmi: {},
+    uploadResTime:3000
   },
 
   onLoad() {
@@ -39,7 +40,7 @@ Page({
     // this.setUserFromStorage()
   },
   getUserByid(){
-   let id =   wx.getStorageSync('user').id
+    let id = wx.getStorageSync('user').id
     wx.request({
       url: app.serverUrl+'/user/get/'+id,
       success:(r)=> {
@@ -233,7 +234,8 @@ Page({
 
   },
   onShow: function () {
-    this.getUserByid()
+
+     this.getUserByid()
   },
 
   showScuessMessage() {
@@ -241,6 +243,8 @@ Page({
       this.showScuessMessageV0()
     } else if (this.data.defaultVerisonIdx == 1) {
       this.showScuessMessageV1()
+    } else if (this.data.defaultVerisonIdx == 2) {
+      this.showScuessMessageV2()
     }
   },
   showScuessMessageV0() {
@@ -259,6 +263,20 @@ Page({
   },
   showScuessMessageV1() {
     if (this.data.isupload1 && this.data.isupload2 && this.data.isupload3 && this.data.isupload4 && this.data.isupload5) {
+      wx.showModal({
+        title: '成功',
+        content: '感谢，欢迎下次继续使用',
+        showCancel: false,
+        confirmText: 'OK',
+        success: (r) => {
+          this.addRecord()
+        }
+      })
+    }
+
+  },
+  showScuessMessageV2() {
+    if (this.data.isupload4) {
       wx.showModal({
         title: '成功',
         content: '感谢，欢迎下次继续使用',
@@ -293,10 +311,10 @@ Page({
       })
       return
     }
-    if (!app.globalData.clazz.id) {
+    if (app.globalData.clazz.id <= 0) {
       wx.showModal({
         title: '温馨提示',
-        content: '未找到班级信息，请完善资料后继续使用',
+        content: '你还没有加入任何班级，请完善资料后继续使用',
         showCancel: false,
         confirmText: '前往',
         success(res) {
@@ -313,13 +331,15 @@ Page({
       title: '正在上传...',
       icon: 'loading',
       mask: true,
-      duration: 5000
+      duration:  this.data.uploadResTime
     })
     if (this.data.defaultVerisonIdx == 0) {
       this.postv0()
     } else if (this.data.defaultVerisonIdx == 1) {
       this.postv1()
-    }
+    } else if (this.data.defaultVerisonIdx == 2) {
+      this.postv2()
+    } 
   },
   postv0() {
     if (!(this.data.img3 && this.data.img4)) {
@@ -385,16 +405,56 @@ Page({
     var timeOut = setTimeout(function () {
       that.showScuessMessage()
       that.clearPost()
-    }, 5000)
+    },  this.data.uploadResTime)
   },
+  postv2() {
+    if (!(this.data.img4)) {
+      wx.showToast({
+        title: '请上传完整图片',
+        icon: 'error',
+        mask: true,
+        duration: 1000
+      })
+      return
+    }
+    //上传img4 完成页
+    wx.uploadFile({
+      filePath: this.data.img4,
+      name: 'file',
+      url: app.serverUrl + '/upload/file/img4/' + app.globalData.user.id,
+      success: (r) => {
+        let data = JSON.parse(r.data)
+        if (app.validCode(data.code)) {
 
+        } else {
+          app.showFailMessage(data.message)
+          this.setData({
+            isupload4: false
+          })
+        }
+
+      },
+      fail: function (e) {
+        console.log(e)
+        this.setData({
+          isupload4: false
+        })
+        app.showFailMessage(e.errMsg)
+      }
+    })
+    var that = this
+    var timeOut = setTimeout(function () {
+      that.showScuessMessage()
+      that.clearPost()
+    }, this.data.uploadResTime)
+  },
 
   postv1() {
     var that = this
     var timeOut = setTimeout(function () {
       that.showScuessMessage()
       that.clearPost()
-    }, 5000)
+    },  this.data.uploadResTime)
     if (!(this.data.img1 && this.data.img2 && this.data.img3 && this.data.img4 && this.data.img5)) {
       wx.showToast({
         title: '请上传完整图片',
@@ -455,12 +515,17 @@ Page({
       }
     })
   },
+  toCreateClazz(){
+    wx.navigateTo({
+        url: '/pages/create/create',
+    })
+  },
   postMail() {
     wx.showToast({
       title: '正在发送',
       icon: 'loading',
       mask: true,
-      duration: 5000
+      duration:  this.data.uploadResTime
     })
     wx.request({
       url: app.serverUrl + '/postMail/' + this.data.name + '/' + this.data.mail,
@@ -552,6 +617,11 @@ Page({
 
     })
   },
+  toedit() {
+    wx.navigateTo({
+        url: '/pages/edit/edit',
+    })
+},
   validCanSubmit() {
     //v0
 
@@ -577,10 +647,18 @@ Page({
           subDisable: true
         })
       }
-    }
-    // else if(){
-
-    // }
+      //v2
+    }else if(this.data.defaultVerisonIdx == 2){
+      if ( this.data.img4 ) {
+        this.setData({
+          subDisable: false
+        })
+      } else {
+        this.setData({
+          subDisable: true
+        })
+      }
+     }
 
 
 

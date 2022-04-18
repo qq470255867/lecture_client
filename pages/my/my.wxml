@@ -56,7 +56,7 @@
                 class="iconfont icon-mima"></text><text>此处仅团支书可见</text></view>
 
         <view class="title_sel">
-            <view class="s_title"><text class="iconfont icon-mingdan"></text><text>  名单</text></view>
+            <view class="s_title"><text class="iconfont icon-mingdan"></text><text> 名单</text></view>
             <view class="sel">
                 <picker bindchange="bindPickerChange" value="{{defaultPickIndex}}" range="{{pickData}}">
 
@@ -105,20 +105,208 @@
                     bindtap="export">打印此页</button></view>
             <view class="pnum">提交人数/班内人数：{{submitNum}}/{{clazz.pnum}}</view>
         </view>
-        <view wx:if="{{clazz.pnum-clazz.realPnum==0}}" class="info_text"><text class="iconfont icon-tishi"></text>  你班里所有同学都注册了小程序，感谢！😄
+        <view wx:if="{{clazz.pnum-clazz.realPnum==0}}" class="info_text"><text class="iconfont icon-tishi"></text>
+            你班里所有同学都注册了小程序，感谢！😄
         </view>
-        <view wx:if="{{clazz.pnum-clazz.realPnum!=0}}" class="info_text"><text class="iconfont icon-tishi"></text> 你的班级还有<text
-                style="color: red;">{{clazz.pnum-clazz.realPnum}}</text>名同学未注册小程序！
+        <view wx:if="{{clazz.pnum-clazz.realPnum > 0}}" class="info_text"><text class="iconfont icon-tishi"></text>
+            你的班级还有<text style="color: red;">{{clazz.pnum-clazz.realPnum}}</text>名同学未注册小程序！
         </view>
         <view class="mbutton">
             <button style="font-size: 80%;" type="primary" bindtap="postEmail">收件到我的邮箱</button>
         </view>
+    </view>
+    <!-- 用户体验内容 -->
+    <view wx:if="{{clazz.id==0}}" class="substatus">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text><text> 注：此处仅内容体验可见</text></view>
+        <view class="title_sel">
+            <view class="s_title"><text class="iconfont icon-mingdan"></text><text> 名单</text></view>
+            <view class="sel">
+                <picker bindchange="bindPickerChange" value="{{defaultPickIndex}}" range="{{pickData}}">
+                    <view class="picker">
+                        <text class='iconfont icon-liebiao'></text>
+                        {{pickData[defaultPickIndex]}}
+                    </view>
+                </picker>
+            </view>
+        </view>
+        <scroll-view wx:if="{{defaultPickIndex==0}}" scroll-x="true" scroll-y="true" class="plist">
+            <view class="person">
+                <view class="pname"> <text>王路飞</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>刘索隆</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>派大星</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>甘兴霸</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>程洁琪</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>何医生</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>胡图图</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>威震天</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>王大锤</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>李三光</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+        </scroll-view>
+
+        <scroll-view wx:if="{{defaultPickIndex==1}}" scroll-x="true" scroll-y="true" class="plist">
+            <view class="person">
+                <view class="pname"> <text>王路飞</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>刘索隆</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>派大星</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>甘兴霸</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>程洁琪</text></view>
+                <view class="pstatus"> <text style="color: green;">已提交</text>
+                    <!-- <text  style="color: red;">未提交</text> -->
+                </view>
+            </view>
+        </scroll-view>
+        <scroll-view wx:if="{{defaultPickIndex==2}}" scroll-x="true" scroll-y="true" class="plist">
+            <view class="person">
+                <view class="pname"> <text>何医生</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>胡图图</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>威震天</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>克里斯</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+            <view class="person">
+                <view class="pname"> <text>李三光</text></view>
+                <view class="pstatus">
+                    <!-- <text style="color: green;">已提交</text> -->
+                    <text style="color: red;">未提交</text>
+                </view>
+            </view>
+        </scroll-view>
+        <view class="pnum_export">
+            <view class="export"><button type="primary" size="mini" style="font-size: 80%;">打印此页</button></view>
+            <view class="pnum">提交人数/班内人数：5/21</view>
+        </view>
+
+        <view class="info_text"><text class="iconfont icon-tishi"></text> 你的班级还有<text
+                style="color: red;">7</text>名同学未注册小程序！
+        </view>
+        <view class="mbutton">
+            <button style="font-size: 80%;" type="primary">收件到我的邮箱</button>
+        </view>
+    </view>
+    <view wx:if="{{clazz.id==0}}" class="uj_show">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text><text> 注：此处仅内容体验可见</text></view>
+        <view class="s_title"><text class="iconfont icon-youxiang"></text><text> 邮箱收件展示</text></view>
+        <view style="padding-top: 5%;" class="info_text"><text class="iconfont icon-tishi"></text> 截图由程序完成重命名，格式为姓名+内容
+        </view>
+        <view class="pic_show">
+            <image style="padding: 5%; width: 150px;" src="https://www.icycraft.cn/pic/uj1.jpg"></image>
+        </view>
+
 
     </view>
+    <view wx:if="{{clazz.id==0}}" class="create_clazz">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text><text> 注：此处仅内容体验可见</text></view>
+        <view class="s_title"><text class="iconfont icon-banji1"></text><text> 创建班级</text></view>
+        <view class="faq_list">
+            <text user-select='true' wx:key="idx" wx:for="{{faqlist}}" wx:for-index="idx" wx:for-item="itemName">
+                {{idx}}. {{itemName.content}}
+            </text>
+        </view>
+        <button bindtap="toCreateClazz" style="font-size: 80%;" type="primary">填写资料</button>
+    </view>
+
     <view class="cur_lecture" wx:if="{{role.id>=2}}">
         <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
                 class="iconfont icon-mima"></text><text>此处仅管理员可见</text></view>
-        <view class="l_title"><text class="iconfont icon-lishijilu_huaban"></text><text>  历史团课</text></view>
+        <view class="l_title"><text class="iconfont icon-lishijilu_huaban"></text><text> 历史团课</text></view>
 
         <scroll-view scroll-y="true" class="lec_list">
             <view wx:key="idx" wx:for="{{lectures}}" wx:for-index="idx" wx:for-item="lec" class="lec">
@@ -132,6 +320,48 @@
         <view class="nbutton">
             <button bindtap="showNewLecModal" style="font-size: 80%;" type="primary">更新团课</button>
         </view>
+    </view>
+    <view class="create_req" wx:if="{{role.id>=2}}">
+        <view style="font-size: 50%; color: gray; text-align: right; padding-bottom: 5%;"><text
+                class="iconfont icon-mima"></text><text>此处仅管理员可见</text></view>
+        <view style="padding-bottom: 5%;" class="req_title">
+            <view><text class="iconfont icon-24gl-branches"></text><text> 创建班级请求</text></view>
+            <view wx:if="{{reqNum>0}}" class="num_req">{{reqNum}}</view>
+        </view>
+        <view wx:if="{{hasReq}}" class="req_info">
+            <view class="s">
+                <view class="sk">学校</view>
+                <view class="sv">{{create_req.school}}</view>
+            </view>
+            <view class="s">
+                <view class="sk">班级</view>
+                <view class="sv">{{create_req.clazz}}</view>
+            </view>
+            <view class="s">
+                <view class="sk">姓名</view>
+                <view class="sv">{{create_req.name}}</view>
+            </view>
+            <view class="s">
+                <view class="sk">邮箱</view>
+                <view class="sv">{{create_req.mail}}</view>
+            </view>
+            <view class="s">
+                <view class="sk">说明</view>
+                <view class="sv">{{create_req.info}}</view>
+            </view>
+            <view class="b">
+                <view class="t"><button size="mini" bindtap="passReq" style="font-size: 80%;" type="primary">同意</button>
+                </view>
+                <view class="f"><button size="mini" bindtap="rejectReq" style="font-size: 80%;" type="warn">拒绝</button>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{!hasReq}}" class="req_info">
+            <view class="nomoreReq">
+                <text >没有更多的消息.....🙁</text>
+            </view>
+        </view>
+
     </view>
     <modal wx:if="{{lecModal}}" title="团课名称" bindconfirm="handLecAddOK" bindcancel="handLecAddNo">
         <input class="name_inp" type="text" model:value="{{newLecName}}" />
